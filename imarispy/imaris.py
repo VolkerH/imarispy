@@ -11,7 +11,7 @@ def np_to_ims(array, fname='myfile.ims',
               chunks=((16, 128, 128), (64, 64, 64)),
               compression='gzip',
               thumbsize=256,
-              dx=0.1, dz=0.25):
+              dx=1.0, dy=1.0, dz=1.0):
 
     assert len(subsamp) == len(chunks)
     assert all([len(i) == 3 for i in subsamp]), 'Only deal with 3D chunks'
@@ -58,7 +58,7 @@ def np_to_ims(array, fname='myfile.ims',
         ('DataSetInfo/Image', ('ExtMin1', '0')),
         ('DataSetInfo/Image', ('ExtMin2', '0')),
         ('DataSetInfo/Image', ('ExtMax0', nx * dx)),
-        ('DataSetInfo/Image', ('ExtMax1', ny * dx)),
+        ('DataSetInfo/Image', ('ExtMax1', ny * dy)),
         ('DataSetInfo/Image', ('ExtMax2', nz * dz)),
         ('DataSetInfo/Image', ('LensPower', '63x')),
         ('DataSetInfo/TimeInfo', ('DatasetTimePoints', nt)),

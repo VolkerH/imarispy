@@ -10,7 +10,9 @@ def np_to_bdv(array,
               subsamp=((1, 1, 1), (1, 2, 2)),
               chunks=((4, 32, 32), (16, 16, 16)),
               compression='gzip',
-              scale = None
+              dx = 1.0,
+              dy = 1.0,
+              dz = 1.0
               ):
     assert len(subsamp) == len(chunks)
     assert all([len(i) == 3 for i in subsamp]), 'Only deal with 3D chunks'
@@ -56,12 +58,8 @@ def np_to_bdv(array,
                                        maxshape=(None, None, None),
                                        scaleoffset=0,
                                        compression=compression)
-
-    if scale is None:
-        write_bdv_xml(fname, array.shape)
-    else:
-        dx, dy, dz = scale
-        write_bdv_xml(fname, array.shape, dx, dy, dz)
+    
+    write_bdv_xml(fname, array.shape, dx, dy, dz)
     return
 
 
